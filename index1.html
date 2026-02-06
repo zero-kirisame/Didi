@@ -16,15 +16,10 @@
         .letter h1 { font-family: 'Dancing Script', cursive; font-size: 2.5em; color: #8b4513; text-align: center; margin: 0 0 20px; }
         .letter p { line-height: 1.8; color: #5d4037; font-size: 1.2em; text-align: justify; }
         .cta { text-align: center; margin-top: 20px; }
-        .btn { background: #ff6b6b; color: white; padding: 12px 24px; border: none; border-radius: 25px; font-size: 1.1em; cursor: pointer; transition: background 0.3s; margin: 5px; }
+        .btn { background: #ff6b6b; color: white; padding: 12px 24px; border: none; border-radius: 25px; font-size: 1.1em; cursor: pointer; transition: background 0.3s; }
         .btn:hover { background: #ff5252; }
         .seal { position: absolute; bottom: -20px; right: -20px; width: 60px; height: 60px; background: radial-gradient(circle, #d4af37, #b8860b); border-radius: 50%; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
-        .gallery { text-align: center; padding: 20px; }
-        .gallery img { width: 45%; margin: 5px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.3); cursor: pointer; transition: transform 0.3s; }
-        .gallery img:hover { transform: scale(1.05); }
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; }
-        .modal img { max-width: 90%; max-height: 90%; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); border-radius: 10px; }
-        @media (max-width: 480px) { .envelope { width: 320px; height: 240px; } .letter h1 { font-size: 2em; } .gallery img { width: 90%; display: block; margin: 10px auto; } }
+        @media (max-width: 480px) { .envelope { width: 320px; height: 240px; } .letter h1 { font-size: 2em; } }
     </style>
 </head>
 <body>
@@ -33,62 +28,23 @@
             <h1>Dear Didi Ji,</h1>
             <p>As we say goodbye, know that you've been my light through the darkness,at first i didn't think we would be this close and now my days feel incomplete without talking to you and to u haved i opened up,the  late-night chats I'll remember them all. You've shaped me more than words can say. Though i really will miss your beutiful eys and and those lustrous waves mostly ill js miss irritating u and those cold stares that u give me.This farewell isn't the end; it's just "see you soon" in a bigger adventure. Grateful forever. With all my love, <br><strong>Your Leander</strong></p>
             <div class="cta">
-                <button class="btn" onclick="showGallery()">💌 View Our Memories</button>
-                <p style="font-size: 0.9em; margin-top: 10px; color: #888;">Click envelope to surprise!</p>
+                <button class="btn" onclick="shareMemory()">💌 Share a Memory</button>
+                <p style="font-size: 0.9em; margin-top: 10px; color: #888;">Click envelope to close & reopen</p>
             </div>
         </div>
         <div class="seal"></div>
     </div>
 
-    <!-- Photo Gallery -->
-    <div id="gallery" style="display:none;" class="letter">
-        <h1>Our Beautiful Memories ✨</h1>
-        <div class="gallery">
-            <img src="https://github.com/zero-kirisame/Didi/blob/main/IMG_20251219_212458.jpg" alt="Festival Night" onclick="openModal(this.src)">
-        </div>
-        <div class="cta">
-            <button class="btn" onclick="closeGallery()">✕ Back to Letter</button>
-        </div>
-    </div>
-
-    <!-- Fullscreen Modal -->
-    <div id="modal" class="modal" onclick="closeModal()">
-        <img id="modal-img" src="" alt="Memory">
-    </div>
-
     <script>
-        let isGalleryOpen = false;
-        
         function openLetter() {
-            if (!isGalleryOpen) {
-                document.querySelector('.envelope').classList.add('flapped');
-            }
+            document.querySelector('.envelope').classList.add('flapped');
         }
-        
-        function showGallery() {
-            document.getElementById('letter').style.display = 'none';
-            document.getElementById('gallery').style.display = 'block';
-            isGalleryOpen = true;
+        function shareMemory() {
+            alert('Add your photos/memories here! (Customize this JS for gallery or WhatsApp share)');
         }
-        
-        function closeGallery() {
-            document.getElementById('gallery').style.display = 'none';
-            document.getElementById('letter').style.display = 'block';
-            isGalleryOpen = false;
-        }
-        
-        function openModal(src) {
-            document.getElementById('modal-img').src = src;
-            document.getElementById('modal').style.display = 'block';
-        }
-        
-        function closeModal() {
-            document.getElementById('modal').style.display = 'none';
-        }
-        
-        // Reset on outside click
+        // Click outside to reset
         document.addEventListener('click', function(e) {
-            if (!e.target.closest('.envelope') && !isGalleryOpen) {
+            if (!e.target.closest('.envelope')) {
                 document.querySelector('.envelope').classList.remove('flapped');
             }
         });
