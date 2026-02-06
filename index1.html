@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farewell Letter to Didi Ji</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@400;700&display=swap');
+        body { margin: 0; padding: 0; background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%); font-family: 'Playfair Display', serif; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+        .envelope { position: relative; width: 400px; height: 300px; cursor: pointer; transition: transform 0.5s ease; }
+        .envelope:hover { transform: scale(1.05); }
+        .envelope::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 150px; background: linear-gradient(45deg, #d4af37, #f7dc6f); border-radius: 10px 10px 0 0; z-index: 2; transform-origin: bottom; transition: transform 1s ease; }
+        .envelope.flapped::before { transform: rotateX(-180deg); }
+        .letter { position: absolute; top: 50px; left: 20px; right: 20px; bottom: 20px; background: #fff8e1; border-radius: 5px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transform: translateY(20px); opacity: 0; transition: all 1s ease; z-index: 1; }
+        .envelope.flapped .letter { transform: translateY(0); opacity: 1; }
+        .letter h1 { font-family: 'Dancing Script', cursive; font-size: 2.5em; color: #8b4513; text-align: center; margin: 0 0 20px; }
+        .letter p { line-height: 1.8; color: #5d4037; font-size: 1.2em; text-align: justify; }
+        .cta { text-align: center; margin-top: 20px; }
+        .btn { background: #ff6b6b; color: white; padding: 12px 24px; border: none; border-radius: 25px; font-size: 1.1em; cursor: pointer; transition: background 0.3s; margin: 5px; }
+        .btn:hover { background: #ff5252; }
+        .seal { position: absolute; bottom: -20px; right: -20px; width: 60px; height: 60px; background: radial-gradient(circle, #d4af37, #b8860b); border-radius: 50%; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .gallery { text-align: center; padding: 20px; }
+        .gallery img { width: 45%; margin: 5px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.3); cursor: pointer; transition: transform 0.3s; }
+        .gallery img:hover { transform: scale(1.05); }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; }
+        .modal img { max-width: 90%; max-height: 90%; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); border-radius: 10px; }
+        @media (max-width: 480px) { .envelope { width: 320px; height: 240px; } .letter h1 { font-size: 2em; } .gallery img { width: 90%; display: block; margin: 10px auto; } }
+    </style>
+</head>
+<body>
+    <div class="envelope" onclick="openLetter()">
+        <div class="letter" id="letter">
+            <h1>Dear Didi Ji,</h1>
+            <p>As we say goodbye, know that you've been my light through the darkness,at first i didn't think we would be this close and now my days feel incomplete without talking to you and to u haved i opened up,the  late-night chats I'll remember them all. You've shaped me more than words can say. Though i really will miss your beutiful eys and and those lustrous waves mostly ill js miss irritating u and those cold stares that u give me.This farewell isn't the end; it's just "see you soon" in a bigger adventure. Grateful forever. With all my love, <br><strong>Your Leander</strong></p>
+            <div class="cta">
+                <button class="btn" onclick="showGallery()">💌 View Our Memories</button>
+                <p style="font-size: 0.9em; margin-top: 10px; color: #888;">Click envelope to surprise!</p>
+            </div>
+        </div>
+        <div class="seal"></div>
+    </div>
+
+    <!-- Photo Gallery -->
+    <div id="gallery" style="display:none;" class="letter">
+        <h1>Our Beautiful Memories ✨</h1>
+        <div class="gallery">
+            <img src="1000089856.jpg" alt="Festival Night" onclick="openModal(this.src)">
+            <img src="1000089836.jpg" alt="Diwali Glow" onclick="openModal(this.src)">
+        </div>
+        <div class="cta">
+            <button class="btn" onclick="closeGallery()">✕ Back to Letter</button>
+        </div>
+    </div>
+
+    <!-- Fullscreen Modal -->
+    <div id="modal" class="modal" onclick="closeModal()">
+        <img id="modal-img" src="" alt="Memory">
+    </div>
+
+    <script>
+        let isGalleryOpen = false;
+        
+        function openLetter() {
+            if (!isGalleryOpen) {
+                document.querySelector('.envelope').classList.add('flapped');
+            }
+        }
+        
+        function showGallery() {
+            document.getElementById('letter').style.display = 'none';
+            document.getElementById('gallery').style.display = 'block';
+            isGalleryOpen = true;
+        }
+        
+        function closeGallery() {
+            document.getElementById('gallery').style.display = 'none';
+            document.getElementById('letter').style.display = 'block';
+            isGalleryOpen = false;
+        }
+        
+        function openModal(src) {
+            document.getElementById('modal-img').src = src;
+            document.getElementById('modal').style.display = 'block';
+        }
+        
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+        
+        // Reset on outside click
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.envelope') && !isGalleryOpen) {
+                document.querySelector('.envelope').classList.remove('flapped');
+            }
+        });
+    </script>
+</body>
+</html>
